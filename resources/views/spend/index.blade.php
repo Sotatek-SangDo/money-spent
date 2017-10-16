@@ -4,10 +4,7 @@
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
     <script type="text/javascript">
         jq(document).ready(function() {
-            jq('#time').on('change', function() {
-                jq('#query-form').submit()
-            })
-            jq('#limit').on('change', function() {
+            jq('.query-form').on('change', function() {
                 jq('#query-form').submit()
             })
         })
@@ -30,9 +27,9 @@
                 <div class="select-list">
                     <div class="select-time">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                            <input class="mdl-textfield__input" type="text" name="time" id="time" value="{{ $time }}" readonly tabIndex="-1">
+                            <input class="mdl-textfield__input query-form" type="text" name="time" id="time" value="{{ $time }}" readonly tabIndex="-1">
                             <label for="time" class="mdl-textfield__label">Time</label>
-                            <ul for="time" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" s>
+                            <ul for="time" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                 <li class="mdl-menu__item">week</li>
                                 <li class="mdl-menu__item">month</li>
                                 <li class="mdl-menu__item">year</li>
@@ -41,12 +38,32 @@
                     </div>
                     <div class="select-limit">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
-                            <input class="mdl-textfield__input" type="text" name="limit" id="limit" value="{{ $limit }}" readonly tabIndex="-1">
+                            <input class="mdl-textfield__input query-form" type="text" name="limit" id="limit" value="{{ $limit }}" readonly tabIndex="-1">
                             <label for="limit" class="mdl-textfield__label">Limit</label>
-                            <ul for="limit" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" s>
+                            <ul for="limit" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                 <li class="mdl-menu__item">10</li>
                                 <li class="mdl-menu__item">20</li>
                                 <li class="mdl-menu__item">30</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="select-limit">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                            <input class="mdl-textfield__input query-form" type="text" name="month" id="month" value="{{ $month }}" readonly tabIndex="-1">
+                            <label for="month" class="mdl-textfield__label">Month</label>
+                            <ul for="month" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                <li class="mdl-menu__item">1</li>
+                                <li class="mdl-menu__item">2</li>
+                                <li class="mdl-menu__item">3</li>
+                                <li class="mdl-menu__item">4</li>
+                                <li class="mdl-menu__item">5</li>
+                                <li class="mdl-menu__item">6</li>
+                                <li class="mdl-menu__item">7</li>
+                                <li class="mdl-menu__item">8</li>
+                                <li class="mdl-menu__item">9</li>
+                                <li class="mdl-menu__item">10</li>
+                                <li class="mdl-menu__item">11</li>
+                                <li class="mdl-menu__item">12</li>
                             </ul>
                         </div>
                     </div>

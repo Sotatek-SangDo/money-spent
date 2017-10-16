@@ -8,6 +8,7 @@ use App\Spend;
 use Auth;
 use Carbon\Carbon;
 use Log;
+use DB;
 
 class HomeController extends Controller
 {
@@ -19,6 +20,8 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->month = Carbon::now()->month;
+        $this->year = Carbon::now()->year;
         $this->startOfWeek = Carbon::now()->startOfWeek();
         $this->endOfWeek = Carbon::now()->endOfWeek();
         $this->startOfMonth = Carbon::now()->startOfMonth();
@@ -38,18 +41,25 @@ class HomeController extends Controller
         $limit = (isset($input['limit'])) ? $input['limit'] : Consts::DEFAULT_LIMIT;
         $time = (isset($input['time'])) ? $input['time'] :Consts::DEFAULT_TIME;
         $query = Spend::where('user_id', Auth()->user()->id);
-        switch ($time) {
-            case Consts::DEFAULT_TIME:
-                $query = $query->whereBetween('date_spend', [$this->startOfWeek, $this->endOfWeek]);
-                break;
-            case Consts::TIME_MONTH:
-                $query = $query->whereBetween('date_spend', [$this->startOfMonth, $this->endOfMonth]);
-                break;
-            default:
-                $query = $query->whereBetween('date_spend', [$this->startOfYear, $this->endOfYear]);
-                break;
+        $month = (isset($input['month'])) ? $input['month'] : $this->month;
+        if(!isset($input['month']) || $input['month'] == $this->month) {
+            switch ($time) {
+                case Consts::DEFAULT_TIME:
+                    $query = $query->whereBetween('date_spend', [$this->startOfWeek, $this->endOfWeek]);
+                    break;
+                case Consts::TIME_MONTH:
+                    $query = $query->whereBetween('date_spend', [$this->startOfMonth, $this->endOfMonth]);
+                    break;
+                default:
+                    $query = $query->whereBetween('date_spend', [$this->startOfYear, $this->endOfYear]);
+                    break;
+            }
+        } else {
+             $query = $query->where(DB::raw("EXTRACT(MONTH FROM date_spend)"), $month)
+                            ->where(DB::raw("EXTRACT(YEAR FROM date_spend)"), $this->year);
         }
+
         $spends = $query->paginate($limit);
-        return view('spend.index', ['time' => $time, 'limit' => $limit, 'spends' => $spends]);
+        return view('spend.index', ['time' => $time, 'limit' => $limit, 'spends' => $spends, 'month' => $month]);
     }
 }
