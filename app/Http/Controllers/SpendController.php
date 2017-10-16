@@ -22,6 +22,6 @@ class SpendController extends Controller
     {
         $input = $request->all();
         Spend::create($input);
-        return route('home');
+        return redirect()->route('home');
     }
 }
