@@ -42,14 +42,4 @@ class Spend extends Model
     {
         $this->attributes['date_spend'] = Carbon::parse($value)->format('Y-m-d');
     }
-
-    public function getAmountAttribute()
-    {
-        return number_format($this->attributes['amount']);
-    }
-
-    public function setAmountAttribute($value)
-    {
-        $this->attributes['amount'] = $value;
-    }
 }

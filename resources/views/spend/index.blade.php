@@ -62,15 +62,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php $total = 0; @endphp
                     @if(count($spends))
                         @foreach($spends as $key => $spend)
                             <tr>
                                 <td class="mdl-data-table__cell--non-numeric">{{ $spend['title'] }}</td>
                                 <td>{{ $spend['date_spend'] }}</td>
-                                <td>{{ $spend['amount'] }} VND</td>
+                                <td>{{ number_format($spend['amount']) }} VND</td>
                             </tr>
+                            @php $total += $spend['amount']; @endphp
                         @endforeach
                     @endif
+                    <tr>
+                        <td colspan="2" style="text-align: right;">Total:</td>
+                        <td>{{ number_format($total) }} VND</td>
+                    </tr>
                 </tbody>
             </table>
             {{ $spends->links('spend.pagination') }}
