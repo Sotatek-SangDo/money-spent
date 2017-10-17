@@ -13,9 +13,15 @@
 .query {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+@media screen and (max-width: 768px) {
+    .query form {
+        width: 90% !important;
+    }
 }
 .query form {
-    width: 30%;
+    width: 50%;
 }
 .button-add {
     margin-top: 20px;
