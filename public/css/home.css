@@ -10,6 +10,13 @@
 .add-new-page {
     margin-bottom: 20px;
 }
+.query {
+    display: flex;
+    justify-content: space-between;
+}
+.query form {
+    width: 30%;
+}
 .button-add {
     margin-top: 20px;
 }

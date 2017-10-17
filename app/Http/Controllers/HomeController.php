@@ -38,11 +38,20 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
-        $limit = (isset($input['limit'])) ? $input['limit'] : Consts::DEFAULT_LIMIT;
+        $limit = Consts::DEFAULT_LIMIT;
         $time = (isset($input['time'])) ? $input['time'] :Consts::DEFAULT_TIME;
         $query = Spend::where('user_id', Auth()->user()->id);
         $month = (isset($input['month'])) ? $input['month'] : $this->month;
-        if(!isset($input['month']) || $input['month'] == $this->month) {
+        $start_date = (isset($input['date_start'])) ? $input['date_start'] : '';
+        $end_date = (isset($input['date_end'])) ? $input['date_end'] : '';
+        if($start_date || $end_date) {
+            if($start_date && !$end_date)
+                $query = $query->where('date_spend', '>=', $start_date);
+            else if(!$start_date && $end_date)
+                $query = $query->where('date_spend', '<=', $end_date);
+            else
+                $query = $query->whereBetween('date_spend',[$start_date, $end_date]);
+        } else if(!isset($input['month']) || $input['month'] == $this->month) {
             switch ($time) {
                 case Consts::DEFAULT_TIME:
                     $query = $query->whereBetween('date_spend', [$this->startOfWeek, $this->endOfWeek]);
@@ -60,6 +69,13 @@ class HomeController extends Controller
         }
 
         $spends = $query->paginate($limit);
-        return view('spend.index', ['time' => $time, 'limit' => $limit, 'spends' => $spends, 'month' => $month]);
+        return view('spend.index', [
+                'time' => $time,
+                'limit' => $limit,
+                'spends' => $spends,
+                'month' => $month,
+                'start_date' => $start_date,
+                'end_date' => $end_date
+            ]);
     }
 }
