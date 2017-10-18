@@ -78,4 +78,9 @@ class HomeController extends Controller
                 'end_date' => $end_date
             ]);
     }
+
+    public function home()
+    {
+        return view('home');
+    }
 }

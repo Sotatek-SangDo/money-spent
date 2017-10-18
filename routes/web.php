@@ -12,8 +12,12 @@
 */
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@home')->name('home');
+
+Route::get('/spend', 'HomeController@index')->name('home');
 
 Route::get('/spend/store', 'SpendController@index')->name('get_store');
 
 Route::post('/spend/store', 'SpendController@store')->name('post_store');
+
+Route::get('/user-children', 'ParentsController@index');

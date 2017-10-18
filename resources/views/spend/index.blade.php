@@ -20,6 +20,10 @@
     </script>
 @endsection
 
+@section('menu')
+    @include('layouts.menu')
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">

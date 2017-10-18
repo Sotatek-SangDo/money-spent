@@ -8,10 +8,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'SM') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
         var jq = jQuery.noConflict();
@@ -22,6 +23,12 @@
     <script src="{{ asset('js/getmdl-select.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.min.css') }}">
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <style type="text/css">
+        .navbar-brand {
+            font-size: 3em;
+            color: #ff5d00 !important;
+        }
+    </style>
     @yield('script')
 </head>
 <body>
@@ -40,14 +47,14 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'SM') }}
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        @yield('menu')
                     </ul>
 
                     <!-- Right Side Of Navbar -->
