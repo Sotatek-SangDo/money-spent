@@ -14,7 +14,7 @@ class AlterUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('user_parents_id')->nullable();
+            $table->integer('user_parents_id')->default(0);
         });
     }
 

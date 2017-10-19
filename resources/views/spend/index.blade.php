@@ -4,17 +4,31 @@
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
     <script type="text/javascript">
         jq(document).ready(function() {
-            jq('.query-form').on('change', function() {
-                jq('#query-form').submit()
-            })
             jq('#date_start').datepicker({
                 format: 'yyyy-mm-dd',
             });
             jq('#date_end').datepicker({
                 format: 'yyyy-mm-dd',
             });
+            jq('.query-form').on('change', function() {
+                if(!jq('#child').length) {
+                    jq('#query-form').submit()
+                } else {
+                    var url = window.location.pathname;
+                    window.location.href = url + '?user_child_name=' + jq('#child').val() + '&' +jq('#query-form').serialize();
+                }
+            })
             jq('.date').on('change', function() {
-                jq('#date-form').submit()
+                if(!jq('#child').length) {
+                    jq('#date-form').submit()
+                } else {
+                    var url = window.location.pathname;
+                    window.location.href = url + '?user_child_name=' + jq('#child').val() + '&' + jq('#date-form').serialize();
+                }
+            })
+            jq('#child').on('change', function() {
+                var url = window.location.pathname;
+                window.location.href = url + '?user_child_name=' + jq(this).val()
             })
         })
     </script>
@@ -37,7 +51,20 @@
                 </a>
             </div>
             <div class="query">
-                <form action="/" method="get" id="query-form">
+                @if(isset($children) && auth()->user()->hasChildren())
+                    <div class="select-limit">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+                            <input class="mdl-textfield__input" type="text" name="user_child_name" id="child" value="{{ $user_child }}" readonly tabIndex="-1">
+                            <label for="child" class="mdl-textfield__label">Children name</label>
+                            <ul for="child" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                @foreach($children as $child)
+                                    <li class="mdl-menu__item">{{ $child['name'] }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+                <form action="/spend/{{$url}}" method="get" id="query-form">
                     <div class="select-list">
                         <div class="select-time">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
@@ -72,7 +99,7 @@
                         </div>
                     </div>
                 </form>
-                <form action="/" method="get" id="date-form">
+                <form action="/spend/{{$url}}" method="get" id="date-form">
                     <div class="select-list">
                         <div class="select-time">
                             <div class="mdl-textfield mdl-js-textfield">
@@ -116,7 +143,9 @@
                     </tr>
                 </tbody>
             </table>
-            {{ $spends->links('spend.pagination') }}
+            @if(count($spends))
+                {{ $spends->links('spend.pagination') }}
+            @endif
         </div>
     </div>
 </div>
