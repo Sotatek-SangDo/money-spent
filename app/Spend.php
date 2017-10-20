@@ -14,7 +14,8 @@ class Spend extends Model
         'title',
         'amount',
         'user_id',
-        'date_spend'
+        'date_spend',
+        'is_new'
     ];
 
     protected $casts = [

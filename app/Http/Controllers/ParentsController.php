@@ -13,6 +13,7 @@ class ParentsController extends Controller
 {
     public function __construct(SpendService $spend)
     {
+        $this->middleware('auth');
         $this->spendService = $spend;
     }
 
@@ -45,5 +46,9 @@ class ParentsController extends Controller
         $input['password'] = Hash::make($input['password']);
         User::create($input);
         return redirect()->route('spend_children');
+    }
+    public function getChildren()
+    {
+        return Auth::user()->children();
     }
 }

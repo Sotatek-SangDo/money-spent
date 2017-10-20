@@ -25,3 +25,9 @@ Route::get('/spend/children', 'ParentsController@index')->name('spend_children')
 Route::get('/add/account', 'ParentsController@addAccount')->name('add');
 
 Route::post('/account/store', 'ParentsController@store')->name('store');
+
+Route::get('/spend/update/{id}', 'SpendController@update');
+
+Route::get('/get-children', 'ParentsController@getChildren')->name('children');
+
+Route::get('/messagelive', 'SpendController@live');

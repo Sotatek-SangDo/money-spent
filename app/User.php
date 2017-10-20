@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return User::where('user_parents_id', $this->id)->count();
     }
+
+    public function children()
+    {
+        return User::where('user_parents_id', $this->id)->get();
+    }
 }

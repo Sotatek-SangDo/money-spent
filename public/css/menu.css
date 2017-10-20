@@ -85,3 +85,17 @@ ul.navbar-nav-customer .dropdown-menu>li>a:focus {
         border-bottom: 1px solid #d7dadc;
     }
 }
+
+.top-right {
+    position: absolute;
+    top: -42%;
+    z-index: 9999;
+    bottom: 0;
+    right: 0;
+}
+@media screen and (max-width: 768px) {
+    .top-right {
+        top: -30%;
+        right: 18%;
+    }
+}

@@ -18,6 +18,9 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <h1>WELCOME TO SITE</h1>
+                @if(auth()->user()->hasChildren())
+                    <livemessage></livemessage>
+                @endif
             </div>
         </div>
     </div>
