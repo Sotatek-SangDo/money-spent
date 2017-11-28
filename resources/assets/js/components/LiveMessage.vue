@@ -49,7 +49,7 @@
             },
             listenForChanges() {
                 let self = this;
-                Echo.channel('messagelive')
+                window.Echo.private('messagelive')
                 .listen('UserCreateSpend', (e) => {
                     var spend = self.spends.find((s) => s.id === e.id),
                         child = self.children.find((c) => c.id == e.user_id)

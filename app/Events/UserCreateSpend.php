@@ -33,7 +33,7 @@ class UserCreateSpend implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('messagelive');
+        return new PrivateChannel('messagelive');
     }
 
     public function broadcastWith()
